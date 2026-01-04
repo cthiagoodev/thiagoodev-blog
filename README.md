@@ -1,7 +1,7 @@
 # thiagoodev Blog
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0-purple.svg?logo=kotlin)](https://kotlinlang.org)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-green.svg?logo=springboot)](https://spring.io/projects/spring-boot)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.x-purple.svg?logo=kotlin)](https://kotlinlang.org)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-green.svg?logo=springboot)](https://spring.io/projects/spring-boot)
 [![Jaspr](https://img.shields.io/badge/Jaspr-SSR-blue.svg?logo=dart)](https://github.com/schultek/jaspr)
 [![Architecture](https://img.shields.io/badge/Architecture-Event%20Driven-orange.svg)]()
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?logo=docker)]()
