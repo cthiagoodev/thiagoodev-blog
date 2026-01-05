@@ -12,9 +12,10 @@ data class Publication(
     @Id
     val uui: UUID = UUID.randomUUID(),
     val title: String,
-    val slug: List<String>,
+    val slug: String,
     val description: String,
     val text: String,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     val updatedAt: LocalDateTime = LocalDateTime.now(),
+    val deletedAt: LocalDateTime? = null,
 )
