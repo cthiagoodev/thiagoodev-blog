@@ -1,0 +1,32 @@
+package br.com.thiagoodev.blog.modules.publication.domain.value_objects
+
+enum class Tag(val value: String) {
+    DART("Dart"),
+    FLUTTER("Flutter"),
+    KOTLIN("Kotlin"),
+    JAVA("Java"),
+    DOCKER("Docker"),
+    SPRING_BOOT("Spring Boot"),
+    MICRONAUT("Micronaut"),
+    ARCHITECTURE("Arquitetura"),
+    CLEAN_CODE("Código Limpo"),
+    DESIGN_PATTERNS("Padrões de Projetos"),
+    BOOKS("Livros"),
+    CAREER("Carreira"),
+    STUDIES("Estudos"),
+    SQL("SQL"),
+    CODEMAGIC("Codemagic"),
+    CI_CD("CI/CD"),
+    ANDROID("Android"),
+    IOS("iOS"),
+    MOBILE("Mobile"),
+    BACKEND("Backend"),
+    INFRASTRUCTURE("Infraestrutura"),
+    COMPUTING("Computação"),
+    BASE("Base"),
+    GOOD_PRACTICES("Boas Práticas"),
+    PROJECT("Projeto"),
+    FIREBASE("Firebase"),
+    DATABASE("Banco de Dados"),
+    PROGRAMMING_LANGUAGE("Linguagem de Programação");
+}
