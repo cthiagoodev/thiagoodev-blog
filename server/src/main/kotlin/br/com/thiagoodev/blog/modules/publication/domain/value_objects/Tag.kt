@@ -29,4 +29,8 @@ enum class Tag(val value: String) {
     FIREBASE("Firebase"),
     DATABASE("Banco de Dados"),
     PROGRAMMING_LANGUAGE("Linguagem de Programação");
+
+    companion object {
+        fun from(value: String): Tag = entries.find { it.value == value } ?: BASE
+    }
 }

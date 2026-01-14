@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotBlank
 data class CreatePublicationDto(
     @NotBlank(message = "The field title is mandatory")
     val title: String,
-    val description: String?,
-    val tags: List<String>,
-    val text: String,
-    val talks: List<String>
+    @NotBlank(message = "The field description is mandatory")
+    val description: String,
+    val tags: List<String> = listOf(),
+    val text: String?,
 )
