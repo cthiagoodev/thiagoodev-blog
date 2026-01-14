@@ -1,0 +1,2 @@
+ALTER TABLE publications
+ALTER COLUMN title SET NOT NULL;

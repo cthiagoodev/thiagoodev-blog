@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0644646b-4628-4875-a7ef-42e3184d7060" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/src/main/resources/db/migrations/V1__create_uuid_extension.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +101,8 @@
       <workItem from="1767752639866" duration="55000" />
       <workItem from="1767918503446" duration="535000" />
       <workItem from="1767919203104" duration="91000" />
+      <workItem from="1768356148668" duration="69000" />
+      <workItem from="1768356253936" duration="148000" />
     </task>
     <servers />
   </component>

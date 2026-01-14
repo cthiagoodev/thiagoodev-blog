@@ -14,4 +14,8 @@ class PublicationService(private val publicationRepository: PublicationRepositor
         val pageable = PageRequest.of(page, size, sort)
         return this.publicationRepository.findAll(pageable)
     }
+
+//    fun create(): Publication {
+//
+//    }
 }

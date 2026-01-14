@@ -15,10 +15,14 @@ class Publication(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     val uuid: UUID? = null,
+    @Column(nullable = false)
     var title: String,
+    @Column(unique = true, nullable = false)
     var slug: String,
+    @Column(nullable = false)
     var description: String,
-    var text: String,
+    @Column(nullable = true)
+    var text: String?,
     @ElementCollection
     @CollectionTable(
         name = "publication_tags",
