@@ -2,7 +2,7 @@ package br.com.thiagoodev.blog.modules.publication.application.dtos
 
 import jakarta.validation.constraints.NotBlank
 
-data class CreatePublicationDto(
+data class PublicationDto(
     @NotBlank(message = "The field title is mandatory")
     val title: String,
     @NotBlank(message = "The field description is mandatory")

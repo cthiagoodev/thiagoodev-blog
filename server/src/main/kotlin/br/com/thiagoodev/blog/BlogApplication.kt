@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 class BlogApplication
 
 fun main(args: Array<String>) {
-	runApplication<BlogApplication>(*args)
+    runApplication<BlogApplication>(*args)
 }
