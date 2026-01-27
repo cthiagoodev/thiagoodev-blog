@@ -1,6 +1,6 @@
 package br.com.thiagoodev.blog.modules.publication.presentation.controllers
 
-import br.com.thiagoodev.blog.modules.publication.application.dtos.PublicationDto
+import br.com.thiagoodev.blog.modules.publication.application.dtos.CreatePublicationDto
 import br.com.thiagoodev.blog.modules.publication.application.services.PublicationService
 import br.com.thiagoodev.blog.modules.publication.domain.entities.Publication
 import jakarta.validation.Valid
@@ -23,7 +23,7 @@ class PublicationController(private val publicationService: PublicationService) 
     }
 
     @PostMapping("/create")
-    fun create(@Valid @RequestBody dto: PublicationDto): ResponseEntity<Publication> {
+    fun create(@Valid @RequestBody dto: CreatePublicationDto): ResponseEntity<Publication> {
         val publication = publicationService.create(dto)
         return ResponseEntity.ok(publication);
     }
