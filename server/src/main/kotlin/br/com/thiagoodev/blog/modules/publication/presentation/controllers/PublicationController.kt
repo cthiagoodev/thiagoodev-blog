@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -47,5 +48,11 @@ class PublicationController(private val publicationService: PublicationService) 
     ): ResponseEntity<Publication> {
         val publication = publicationService.update(uuid, dto)
         return ResponseEntity.ok(publication);
+    }
+
+    @DeleteMapping("/{uuid}/delete")
+    fun delete(@PathVariable uuid: String): ResponseEntity<Unit> {
+        publicationService.delete(uuid)
+        return ResponseEntity.noContent().build()
     }
 }

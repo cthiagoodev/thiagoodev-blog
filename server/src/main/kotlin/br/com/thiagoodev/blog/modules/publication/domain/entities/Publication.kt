@@ -47,4 +47,13 @@ class Publication(
     @Column(nullable = false)
     var updatedAt: LocalDateTime? = null,
     var deletedAt: LocalDateTime? = null,
-)
+) {
+    @get:Transient
+    val isDeleted: Boolean
+        get() = deletedAt != null
+
+    fun delete() {
+        if(isDeleted) return
+        deletedAt = LocalDateTime.now()
+    }
+}

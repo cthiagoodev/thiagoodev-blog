@@ -26,11 +26,12 @@ class PublicationService(private val publicationRepository: PublicationRepositor
             "createdAt",
         )
 
-        return this.publicationRepository.findAll(pageable)
+        return publicationRepository.findAllByDeletedAtIsNull(pageable)
     }
 
     fun getByUUID(uuid: String): Publication? =
-        publicationRepository.findByIdOrNull(UUID.fromString(uuid))
+        publicationRepository.findByUuidAndDeletedAtIsNull(UUID.fromString(uuid))
+            ?: throw RuntimeException("Publication not found")
 
     @Transactional
     fun create(dto: CreatePublicationDto): Publication {
@@ -41,7 +42,7 @@ class PublicationService(private val publicationRepository: PublicationRepositor
     @Transactional
     fun update(uuid: String, dto: UpdatePublicationDto): Publication {
         val uuid = UUID.fromString(uuid)
-        val publication: Publication = publicationRepository.findByIdOrNull(uuid)
+        val publication: Publication = publicationRepository.findByUuidAndDeletedAtIsNull(uuid)
             ?: throw RuntimeException("Publication not found")
 
         publication.apply {
@@ -63,6 +64,20 @@ class PublicationService(private val publicationRepository: PublicationRepositor
             }
 
         }
+
+        return publicationRepository.save(publication)
+    }
+
+    fun delete(uuid: String): Publication {
+        val uuid = UUID.fromString(uuid)
+        val publication: Publication = publicationRepository.findByIdOrNull(uuid)
+            ?: throw RuntimeException("Publication not found")
+
+        if(publication.isDeleted) {
+            throw RuntimeException("Publication already deleted")
+        }
+
+        publication.delete()
 
         return publicationRepository.save(publication)
     }
