@@ -29,6 +29,9 @@ class PublicationService(private val publicationRepository: PublicationRepositor
         return this.publicationRepository.findAll(pageable)
     }
 
+    fun getByUUID(uuid: String): Publication? =
+        publicationRepository.findByIdOrNull(UUID.fromString(uuid))
+
     @Transactional
     fun create(dto: CreatePublicationDto): Publication {
         val publication: Publication = dto.toPublication()
@@ -36,8 +39,8 @@ class PublicationService(private val publicationRepository: PublicationRepositor
     }
 
     @Transactional
-    fun update(id: String, dto: UpdatePublicationDto): Publication {
-        val uuid = UUID.fromString(id)
+    fun update(uuid: String, dto: UpdatePublicationDto): Publication {
+        val uuid = UUID.fromString(uuid)
         val publication: Publication = publicationRepository.findByIdOrNull(uuid)
             ?: throw RuntimeException("Publication not found")
 
