@@ -22,8 +22,7 @@ class PublicationService(private val publicationRepository: PublicationRepositor
         val pageable = PageRequest.of(
             pageable.pageNumber,
             pageable.pageSize,
-            Sort.Direction.DESC,
-            "createdAt",
+            Sort.by(Sort.Direction.DESC, "createdAt"),
         )
 
         return publicationRepository.findAllByDeletedAtIsNull(pageable)
