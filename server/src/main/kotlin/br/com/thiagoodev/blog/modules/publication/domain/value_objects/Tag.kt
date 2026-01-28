@@ -31,6 +31,7 @@ enum class Tag(val value: String) {
     PROGRAMMING_LANGUAGE("Linguagem de Programação");
 
     companion object {
-        fun from(value: String): Tag? = entries.find { it.value == value }
+        fun from(value: String): Tag? = entries.find {
+            it.value.trim().equals(value.trim(), ignoreCase = true) }
     }
 }

@@ -1,0 +1,2 @@
+ALTER TABLE publications
+ALTER COLUMN text TYPE TEXT;
