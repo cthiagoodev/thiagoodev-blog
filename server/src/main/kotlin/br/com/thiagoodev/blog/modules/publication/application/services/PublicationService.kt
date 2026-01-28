@@ -4,6 +4,8 @@ import br.com.thiagoodev.blog.modules.publication.application.dtos.CreatePublica
 import br.com.thiagoodev.blog.modules.publication.application.dtos.UpdatePublicationDto
 import br.com.thiagoodev.blog.modules.publication.application.utils.toPublication
 import br.com.thiagoodev.blog.modules.publication.domain.entities.Publication
+import br.com.thiagoodev.blog.modules.publication.domain.exceptions.PublicationAlreadyDeletedException
+import br.com.thiagoodev.blog.modules.publication.domain.exceptions.PublicationNotFoundException
 import br.com.thiagoodev.blog.modules.publication.domain.utils.SlugFactory
 import br.com.thiagoodev.blog.modules.publication.domain.value_objects.Tag
 import br.com.thiagoodev.blog.modules.publication.infrastructure.repositories.PublicationRepository
@@ -30,7 +32,7 @@ class PublicationService(private val publicationRepository: PublicationRepositor
 
     fun getByUUID(uuid: String): Publication? =
         publicationRepository.findByUuidAndDeletedAtIsNull(UUID.fromString(uuid))
-            ?: throw RuntimeException("Publication not found")
+            ?: throw PublicationNotFoundException()
 
     @Transactional
     fun create(dto: CreatePublicationDto): Publication {
@@ -42,7 +44,7 @@ class PublicationService(private val publicationRepository: PublicationRepositor
     fun update(uuid: String, dto: UpdatePublicationDto): Publication {
         val uuid = UUID.fromString(uuid)
         val publication: Publication = publicationRepository.findByUuidAndDeletedAtIsNull(uuid)
-            ?: throw RuntimeException("Publication not found")
+            ?: throw PublicationNotFoundException()
 
         publication.apply {
             dto.title?.let {
@@ -71,13 +73,13 @@ class PublicationService(private val publicationRepository: PublicationRepositor
     fun delete(uuid: String): Publication {
         val uuid = UUID.fromString(uuid)
         val publication: Publication = publicationRepository.findByIdOrNull(uuid)
-            ?: throw RuntimeException("Publication not found")
+            ?: throw PublicationNotFoundException()
 
         if(publication.isDeleted) {
-            throw RuntimeException("Publication already deleted")
+            throw PublicationAlreadyDeletedException()
+        } else {
+            publication.delete()
         }
-
-        publication.delete()
 
         return publicationRepository.save(publication)
     }
