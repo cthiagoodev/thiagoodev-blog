@@ -68,6 +68,7 @@ class PublicationService(private val publicationRepository: PublicationRepositor
         return publicationRepository.save(publication)
     }
 
+    @Transactional
     fun delete(uuid: String): Publication {
         val uuid = UUID.fromString(uuid)
         val publication: Publication = publicationRepository.findByIdOrNull(uuid)
