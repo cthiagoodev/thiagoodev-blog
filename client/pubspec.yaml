@@ -17,3 +17,4 @@ dev_dependencies:
 
 jaspr:
   mode: server
+  port: 8081
