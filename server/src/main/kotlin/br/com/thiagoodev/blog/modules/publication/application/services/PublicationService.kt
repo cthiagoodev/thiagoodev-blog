@@ -16,6 +16,10 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.temporal.TemporalAdjusters
 import java.util.UUID
 
 @Service
@@ -40,6 +44,18 @@ class PublicationService(private val publicationRepository: PublicationRepositor
             ?: throw PublicationNotFoundException()
     }
 
+    fun getPublicationsOnCurrentWeek(): List<Publication> {
+        val today = LocalDate.now()
+        val start = today.with(TemporalAdjusters
+            .previousOrSame(DayOfWeek.SUNDAY))
+            .atStartOfDay()
+        val end = today.with(TemporalAdjusters
+            .nextOrSame(DayOfWeek.SATURDAY))
+            .atTime(LocalTime.MAX)
+
+        return publicationRepository.findAllByCreatedAtBetweenAndDeletedAtIsNull(start, end)
+    }
+
     @Transactional
     fun create(dto: CreatePublicationDto): Publication {
         val publication: Publication = dto.toPublication()
@@ -60,6 +76,7 @@ class PublicationService(private val publicationRepository: PublicationRepositor
 
             dto.description?.let { description = it }
             dto.text?.let { text = it }
+            dto.image?.let { image = it }
 
             dto.tags?.let {
                 tags.clear()

@@ -25,6 +25,8 @@ class Publication(
     var text: String?,
     @Column(nullable = true)
     var viewsCount: Long = 0,
+    @Column(nullable = true)
+    var image: String?,
     @ElementCollection
     @CollectionTable(
         name = "publication_tags",

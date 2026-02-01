@@ -22,7 +22,7 @@ class PublicationViewService(
         repository.incrementViews(event.uuid)
     }
 
-    fun publishEvent(id: String) {
+    fun sendPublicationViewedEvent(id: String) {
         val uuid = UUID.fromString(id)
         eventPublisher.publishEvent(PublicationViewedEvent(uuid))
     }

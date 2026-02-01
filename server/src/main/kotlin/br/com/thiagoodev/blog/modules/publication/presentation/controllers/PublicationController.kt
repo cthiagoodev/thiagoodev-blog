@@ -5,12 +5,10 @@ import br.com.thiagoodev.blog.modules.publication.application.dtos.UpdatePublica
 import br.com.thiagoodev.blog.modules.publication.application.services.PublicationService
 import br.com.thiagoodev.blog.modules.publication.application.services.PublicationViewService
 import br.com.thiagoodev.blog.modules.publication.domain.entities.Publication
-import br.com.thiagoodev.blog.modules.publication.infrastructure.events.PublicationViewedEvent
 import jakarta.servlet.http.Cookie
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
-import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
@@ -25,11 +23,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/api/publications")
+@RequestMapping("/publications")
 class PublicationController(
     private val publicationService: PublicationService,
     private val publicationViewService: PublicationViewService,
 ) {
+    private val cookieMaxAge: Int = 24 * 60 * 60
+    private val cookiePath: String = "/"
+    private val cookieHttpOnly: Boolean = true
+    private val viewedCookiePrefix: String = "viewed_post_"
+
     @GetMapping
     fun getAll(pageable: Pageable): ResponseEntity<Page<Publication>> {
         val publications = publicationService.getAll(pageable)
@@ -52,19 +55,40 @@ class PublicationController(
         request: HttpServletRequest,
         response: HttpServletResponse,
     ) {
-        val cookieName = "viewed_post_$uuid"
-        val hasViewed = request.cookies.any { it.name == cookieName }
+        val cookieName = getCookieName(uuid)
 
-        if(!hasViewed) {
-            val cookie = Cookie(cookieName, "true").apply {
-                maxAge = 24 * 60 * 60
-                path = "/"
-                isHttpOnly = true
-            }
-
+        if(!hasViewedCookie(request, cookieName)) {
+            val cookie = createViewedCookie(cookieName)
             response.addCookie(cookie)
-            publicationViewService.publishEvent(uuid)
+            publicationViewService.sendPublicationViewedEvent(uuid)
         }
+    }
+
+    private fun getCookieName(uuid: String) = "$viewedCookiePrefix$uuid"
+
+    private fun hasViewedCookie(
+        request: HttpServletRequest,
+        cookieName: String,
+    ): Boolean = request.cookies.any { it.name == cookieName }
+
+    private fun createViewedCookie(cookieName: String): Cookie {
+        return Cookie(cookieName, "true").apply {
+            maxAge = cookieMaxAge
+            path = cookiePath
+            isHttpOnly = cookieHttpOnly
+        }
+    }
+
+    @GetMapping("/featured")
+    fun getFeaturedPublication(): ResponseEntity<Publication> {
+        val publication: Publication = publicationService.getFeaturedPublication()
+        return ResponseEntity.ok(publication)
+    }
+
+    @GetMapping("/on-current-week")
+    fun getPublicationsOnCurrentWeek(): ResponseEntity<List<Publication>> {
+        val publications: List<Publication> = publicationService.getPublicationsOnCurrentWeek()
+        return ResponseEntity.ok(publications)
     }
 
     @PostMapping("/create")

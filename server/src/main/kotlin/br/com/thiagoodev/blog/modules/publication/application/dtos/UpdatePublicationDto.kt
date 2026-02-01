@@ -5,4 +5,5 @@ data class UpdatePublicationDto(
     val description: String?,
     val tags: List<String>?,
     val text: String?,
+    val image: String?,
 )

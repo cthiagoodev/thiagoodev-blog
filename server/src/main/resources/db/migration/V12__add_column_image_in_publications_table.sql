@@ -1,0 +1,2 @@
+ALTER TABLE publications
+ADD COLUMN image VARCHAR(255);

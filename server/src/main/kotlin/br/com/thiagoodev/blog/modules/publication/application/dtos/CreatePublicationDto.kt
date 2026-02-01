@@ -9,4 +9,5 @@ data class CreatePublicationDto(
     val description: String,
     val tags: List<String> = listOf(),
     val text: String?,
+    val image: String?,
 )

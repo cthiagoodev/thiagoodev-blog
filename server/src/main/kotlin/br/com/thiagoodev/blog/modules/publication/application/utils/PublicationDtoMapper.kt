@@ -10,6 +10,7 @@ fun CreatePublicationDto.toPublication(): Publication {
         title = title,
         description = description,
         text = text,
+        image = image,
         tags = tags
             .mapNotNull { Tag.from(it) }
             .toMutableSet(),
