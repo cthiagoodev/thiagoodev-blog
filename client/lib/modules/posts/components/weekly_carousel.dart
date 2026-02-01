@@ -1,4 +1,5 @@
 import 'package:blog/core/constants/theme.dart';
+import 'package:blog/modules/components/section_title.dart';
 import 'package:blog/modules/posts/components/post_card.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
@@ -9,7 +10,7 @@ class WeeklyCarousel extends StatelessComponent {
   Component build(BuildContext context) {
     return section(classes: 'weekly-carousel', [
       div(classes: 'carousel-header', [
-        h2(classes: 'section-title', [.text('Destaques da Semana')]),
+        const SectionTitle(title: 'Destaques da Semana'),
         div(classes: 'carousel-nav', [
           button(classes: 'nav-btn', [jl.ChevronLeft(width: 20.px, height: 20.px)]),
           button(classes: 'nav-btn', [jl.ChevronRight(width: 20.px, height: 20.px)]),
@@ -45,18 +46,13 @@ class WeeklyCarousel extends StatelessComponent {
     ),
     css('.carousel-header').styles(
       display: Display.flex,
-      margin: Margin.only(bottom: 2.rem),
+      margin: Margin.only(bottom: 1.rem),
       justifyContent: JustifyContent.spaceBetween,
-      alignItems: AlignItems.center,
-    ),
-    css('.section-title').styles(
-      margin: Margin.zero,
-      color: AppColors.foreground,
-      fontSize: AppFontSizes.h2,
-      fontWeight: FontWeight.w700,
+      alignItems: AlignItems.start,
     ),
     css('.carousel-nav').styles(
       display: Display.flex,
+      margin: Margin.only(top: 0.5.rem),
       gap: Gap(column: 0.75.rem),
     ),
     css('.nav-btn').styles(

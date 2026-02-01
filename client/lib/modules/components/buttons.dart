@@ -1,6 +1,7 @@
 import 'package:blog/core/constants/theme.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr_lucide/jaspr_lucide.dart' as jl;
 
 enum _ButtonVariant { primary, secondary, outline, ghost }
 
@@ -123,6 +124,47 @@ class Button extends StatelessComponent {
       shadow: .none,
       color: AppColors.primaryDeep,
       backgroundColor: AppColors.primaryLight,
+    ),
+  ];
+}
+
+class LinkButton extends StatelessComponent {
+  final String label;
+  final String? href;
+
+  const LinkButton({required this.label, this.href});
+
+  @override
+  Component build(BuildContext context) {
+    if (href != null) {
+      return a(href: href!, classes: 'link-btn', [
+        .text(label),
+        jl.ArrowRight(width: 16.px, height: 16.px),
+      ]);
+    }
+
+    return span(classes: 'link-btn', [
+      .text(label),
+      jl.ArrowRight(width: 16.px, height: 16.px),
+    ]);
+  }
+
+  @css
+  static List<StyleRule> get styles => [
+    css('.link-btn').styles(
+      display: Display.flex,
+      alignItems: AlignItems.center,
+      gap: Gap(column: 0.5.rem),
+      color: AppColors.primary,
+      fontSize: AppFontSizes.body,
+      fontWeight: FontWeight.w600,
+      textDecoration: TextDecoration.none,
+      cursor: Cursor.pointer,
+      transition: const Transition('gap', duration: Duration(milliseconds: 200)),
+    ),
+    css('.link-btn:hover').styles(
+      textDecoration: TextDecoration(line: TextDecorationLine.underline),
+      gap: Gap(column: 0.75.rem),
     ),
   ];
 }
