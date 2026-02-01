@@ -15,12 +15,11 @@ void main() {
     title: 'thiagoodev | Blog',
     styles: [
       css.import('https://fonts.googleapis.com/css?family=Plus%20Jakarta%20Sans'),
-      css("root").styles(raw: AppTheme.rawVariables),
       css('html, body').styles(
         padding: .zero,
         margin: .zero,
         color: AppColors.neutral,
-        fontFamily: const .list([FontFamily('Plus Jakarta Sans'), FontFamilies.sansSerif]),
+        fontFamily: AppTheme.fontFamily,
         backgroundColor: AppColors.background,
       ),
     ],

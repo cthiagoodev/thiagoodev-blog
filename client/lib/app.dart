@@ -4,6 +4,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
 import 'core/constants/theme.dart';
+import 'modules/header/header.dart';
 
 class App extends StatelessComponent {
   const App({super.key});
@@ -11,6 +12,7 @@ class App extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return div(classes: 'main', [
+      Header(),
       Router(routes: [
         Route(path: '/', name: "Home", builder: (context, state) => HomeScreen()),
       ]),
@@ -26,8 +28,8 @@ class App extends StatelessComponent {
     ),
     css('section').styles(
       width: 100.percent,
-      maxWidth: .variable('--container-lg'),
-      padding: Padding.all(AppSpacing.md),
+      maxWidth: AppTheme.containerLg,
+      padding: Padding.all(1.rem),
       margin: Margin.symmetric(horizontal: .auto),
       flex: Flex(grow: 1),
     )
