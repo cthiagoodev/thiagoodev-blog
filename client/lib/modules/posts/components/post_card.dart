@@ -46,30 +46,30 @@ class PostCard extends StatelessComponent {
   @css
   static List<StyleRule> get styles => [
     css('.card-media').styles(
+      position: Position.relative(),
       width: 100.percent,
       aspectRatio: const AspectRatio(16, 10),
       overflow: Overflow.hidden,
       flex: Flex(grow: 0, shrink: 0),
-      position: Position.relative(),
     ),
     css('.card-img').styles(
       display: Display.block,
       width: 100.percent,
       height: 100.percent,
-      raw: {'object-fit': 'cover'},
       transition: const Transition('transform', duration: Duration(milliseconds: 500)),
+      raw: {'object-fit': 'cover'},
     ),
     css('.app-card:hover .card-img').styles(
       transform: Transform.scale(1.05),
     ),
     css('.card-body').styles(
       display: Display.flex,
-      flexDirection: FlexDirection.column,
+      width: 100.percent,
       padding: Padding.all(1.5.rem),
+      boxSizing: BoxSizing.borderBox,
+      flexDirection: FlexDirection.column,
       gap: Gap(row: 1.rem),
       flex: Flex(grow: 1),
-      width: 100.percent,
-      boxSizing: BoxSizing.borderBox,
     ),
     css('.card-meta').styles(
       display: Display.flex,

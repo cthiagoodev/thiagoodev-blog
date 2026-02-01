@@ -3,10 +3,12 @@ import 'package:jaspr/dom.dart';
 abstract class AppColors {
   static const background = Color('#FBFBFA');
   static const foreground = Color('#121212');
-  static const primary = Color('#059669');
-  static const primaryDark = Color('#064E3B');
-  static const primaryDeep = Color('#047857');
-  static const primaryLight = Color('#ECFDF5');
+
+  static const primary = Color('#4F46E5');
+  static const primaryDark = Color('#312E81');
+  static const primaryDeep = Color('#4338CA');
+  static const primaryLight = Color('#EEF2FF');
+
   static const neutral = Color('#6B7280');
   static const textSecondary = Color('#374151');
   static const surface = Color('#F3F4F6');
