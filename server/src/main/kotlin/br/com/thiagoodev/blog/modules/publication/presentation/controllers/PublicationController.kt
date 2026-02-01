@@ -3,8 +3,14 @@ package br.com.thiagoodev.blog.modules.publication.presentation.controllers
 import br.com.thiagoodev.blog.modules.publication.application.dtos.CreatePublicationDto
 import br.com.thiagoodev.blog.modules.publication.application.dtos.UpdatePublicationDto
 import br.com.thiagoodev.blog.modules.publication.application.services.PublicationService
+import br.com.thiagoodev.blog.modules.publication.application.services.PublicationViewService
 import br.com.thiagoodev.blog.modules.publication.domain.entities.Publication
+import br.com.thiagoodev.blog.modules.publication.infrastructure.events.PublicationViewedEvent
+import jakarta.servlet.http.Cookie
+import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 import jakarta.validation.Valid
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
@@ -20,7 +26,10 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/publications")
-class PublicationController(private val publicationService: PublicationService) {
+class PublicationController(
+    private val publicationService: PublicationService,
+    private val publicationViewService: PublicationViewService,
+) {
     @GetMapping
     fun getAll(pageable: Pageable): ResponseEntity<Page<Publication>> {
         val publications = publicationService.getAll(pageable)
@@ -28,9 +37,34 @@ class PublicationController(private val publicationService: PublicationService) 
     }
 
     @GetMapping("/{uuid}")
-    fun getByUUID(@PathVariable uuid: String): ResponseEntity<Publication> {
+    fun getByUUID(
+        @PathVariable uuid: String,
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+    ): ResponseEntity<Publication> {
         val publication = publicationService.getByUUID(uuid)
+        setViewedCookie(uuid, request, response)
         return ResponseEntity.ok(publication)
+    }
+
+    private fun setViewedCookie(
+        uuid: String,
+        request: HttpServletRequest,
+        response: HttpServletResponse,
+    ) {
+        val cookieName = "viewed_post_$uuid"
+        val hasViewed = request.cookies.any { it.name == cookieName }
+
+        if(!hasViewed) {
+            val cookie = Cookie(cookieName, "true").apply {
+                maxAge = 24 * 60 * 60
+                path = "/"
+                isHttpOnly = true
+            }
+
+            response.addCookie(cookie)
+            publicationViewService.publishEvent(uuid)
+        }
     }
 
     @PostMapping("/create")

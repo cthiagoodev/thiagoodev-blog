@@ -23,6 +23,8 @@ class Publication(
     var description: String,
     @Column(nullable = true)
     var text: String?,
+    @Column(nullable = true)
+    var viewsCount: Long = 0,
     @ElementCollection
     @CollectionTable(
         name = "publication_tags",

@@ -1,0 +1,1 @@
+CREATE INDEX idx_publications_views ON publications(views_count DESC);

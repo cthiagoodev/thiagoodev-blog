@@ -30,9 +30,15 @@ class PublicationService(private val publicationRepository: PublicationRepositor
         return publicationRepository.findAllByDeletedAtIsNull(pageable)
     }
 
-    fun getByUUID(uuid: String): Publication? =
-        publicationRepository.findByUuidAndDeletedAtIsNull(UUID.fromString(uuid))
+    fun getByUUID(uuid: String): Publication {
+        return publicationRepository.findByUuidAndDeletedAtIsNull(UUID.fromString(uuid))
             ?: throw PublicationNotFoundException()
+    }
+
+    fun getFeaturedPublication(): Publication {
+        return publicationRepository.findMostViewed()
+            ?: throw PublicationNotFoundException()
+    }
 
     @Transactional
     fun create(dto: CreatePublicationDto): Publication {
