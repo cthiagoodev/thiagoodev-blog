@@ -1,6 +1,6 @@
-import 'package:blog/modules/components/app_container.dart';
-import 'package:blog/modules/posts/components/featured_post.dart';
-import 'package:blog/modules/posts/components/weekly_carousel.dart';
+import 'package:blog/presentation/global_components/app_container.dart';
+import 'package:blog/presentation/pages/posts/components/featured_post.dart';
+import 'package:blog/presentation/pages/posts/components/weekly_carousel.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 

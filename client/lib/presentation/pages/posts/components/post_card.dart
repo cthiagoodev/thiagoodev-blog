@@ -1,7 +1,7 @@
 import 'package:blog/core/constants/theme.dart';
-import 'package:blog/modules/components/app_card.dart';
-import 'package:blog/modules/components/badge.dart';
-import 'package:blog/modules/components/buttons.dart';
+import 'package:blog/presentation/global_components/app_card.dart';
+import 'package:blog/presentation/global_components/badge.dart';
+import 'package:blog/presentation/global_components/buttons.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 

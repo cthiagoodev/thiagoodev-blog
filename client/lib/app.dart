@@ -1,10 +1,10 @@
-import 'package:blog/modules/home/home_screen.dart';
+import 'package:blog/presentation/pages/home/home_screen.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_router/jaspr_router.dart';
 
 import 'core/constants/theme.dart';
-import 'modules/header/header.dart';
+import 'presentation/global_components/header.dart';
 
 class App extends StatelessComponent {
   const App({super.key});

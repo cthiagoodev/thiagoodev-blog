@@ -1,5 +1,6 @@
 library;
 
+import 'package:blog/core/di/injection.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/server.dart';
 import 'app.dart';
@@ -10,6 +11,8 @@ void main() {
   Jaspr.initializeApp(
     options: defaultServerOptions,
   );
+
+  setupInjection();
 
   runApp(Document(
     title: 'thiagoodev | Blog',

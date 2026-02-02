@@ -1,5 +1,5 @@
 import 'package:blog/core/constants/theme.dart';
-import 'package:blog/modules/components/buttons.dart';
+import 'package:blog/presentation/global_components/buttons.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as jl;

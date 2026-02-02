@@ -1,6 +1,6 @@
 import 'package:blog/core/constants/theme.dart';
-import 'package:blog/modules/components/section_title.dart';
-import 'package:blog/modules/posts/components/post_card.dart';
+import 'package:blog/presentation/global_components/section_title.dart';
+import 'package:blog/presentation/pages/posts/components/post_card.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as jl;

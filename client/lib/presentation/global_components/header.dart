@@ -1,5 +1,5 @@
 import 'package:blog/core/constants/theme.dart';
-import 'package:blog/modules/header/nav.dart';
+import 'package:blog/presentation/global_components/nav.dart';
 import 'package:jaspr/dom.dart';
 import 'package:jaspr/jaspr.dart';
 
