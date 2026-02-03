@@ -14,8 +14,18 @@ extension PublicationMapper on PublicationApiModel {
       image: image,
       tags: tags?.where((t) => t.isNotEmpty).cast<String>().toList() ?? [],
       talks: talks?.map((e) => e.toEntity()).toList() ?? [],
-      createdAt: createdAt != null ? DateTime.parse(createdAt!) : DateTime(0),
-      updatedAt: updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
+      createdAt: _parseCreatedAt(),
+      updatedAt: _parseUpdatedAt(),
     );
+  }
+
+  DateTime _parseCreatedAt() {
+    if (createdAt == null) return DateTime(0);
+    return DateTime.tryParse(createdAt!) ?? DateTime(0);
+  }
+
+  DateTime? _parseUpdatedAt() {
+    if (updatedAt == null) return null;
+    return DateTime.tryParse(updatedAt!);
   }
 }
