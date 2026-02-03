@@ -13,7 +13,7 @@ final class PublicationsRemoteRepository implements PublicationRepository {
 
   const PublicationsRemoteRepository(this._client);
 
-  static const String basePath = "/publications";
+  static const String basePath = "/api/publications";
 
   @override
   Future<PaginatedResult<Publication>> getAll({int page = 0, int size = 10}) async {

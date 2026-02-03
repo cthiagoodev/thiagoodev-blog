@@ -1,13 +1,25 @@
 import 'package:blog/core/constants/theme.dart';
+import 'package:blog/core/di/injection.dart';
+import 'package:blog/domain/models/publication.dart';
+import 'package:blog/domain/usecases/get_current_week_publications_usecase.dart';
 import 'package:blog/presentation/global_components/section_title.dart';
 import 'package:blog/presentation/pages/posts/components/post_card.dart';
 import 'package:jaspr/dom.dart';
-import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/server.dart';
 import 'package:jaspr_lucide/jaspr_lucide.dart' as jl;
 
-class WeeklyCarousel extends StatelessComponent {
+class WeeklyCarousel extends AsyncStatelessComponent {
+  const WeeklyCarousel({super.key});
+
   @override
-  Component build(BuildContext context) {
+  Future<Component> build(BuildContext context) async {
+    final GetCurrentWeekPublicationsUseCase getCurrentWeekPublicationsUseCase = injection();
+    final List<Publication> publications = await getCurrentWeekPublicationsUseCase();
+
+    if (publications.isEmpty) {
+      return div([]);
+    }
+
     return section(classes: 'weekly-carousel', [
       div(classes: 'carousel-header', [
         const SectionTitle(title: 'Destaques da Semana'),
@@ -17,24 +29,13 @@ class WeeklyCarousel extends StatelessComponent {
         ]),
       ]),
       div(classes: 'carousel-grid', [
-        const PostCard(
-          title: 'O Futuro do State Management no Dart',
-          category: 'Backend',
-          date: '2 Fev 2026',
-          imageSrc: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=800&q=80',
-        ),
-        const PostCard(
-          title: 'Micro-frontends com Jaspr: Vale a pena?',
-          category: 'Web',
-          date: '1 Fev 2026',
-          imageSrc: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80',
-        ),
-        const PostCard(
-          title: 'UX Design para Desenvolvedores Mobile',
-          category: 'Design',
-          date: '28 Jan 2026',
-          imageSrc: 'https://images.unsplash.com/photo-1586717791821-3f44a5638d48?auto=format&fit=crop&w=800&q=80',
-        ),
+        for (final publication in publications)
+          PostCard(
+            title: publication.title,
+            category: publication.tags.isNotEmpty ? publication.tags.first : 'Geral',
+            date: publication.createdAt.toString(),
+            imageSrc: publication.image ?? '',
+          ),
       ]),
     ]);
   }

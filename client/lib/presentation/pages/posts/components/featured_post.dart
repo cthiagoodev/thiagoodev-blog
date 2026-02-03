@@ -1,4 +1,7 @@
 import 'package:blog/core/constants/theme.dart';
+import 'package:blog/core/di/injection.dart';
+import 'package:blog/domain/models/publication.dart';
+import 'package:blog/domain/usecases/get_featured_publication_usecase.dart';
 import 'package:blog/presentation/global_components/app_card.dart';
 import 'package:blog/presentation/global_components/badge.dart';
 import 'package:blog/presentation/global_components/buttons.dart';
@@ -6,16 +9,14 @@ import 'package:jaspr/dom.dart';
 import 'package:jaspr/server.dart';
 
 class FeaturedPost extends AsyncStatelessComponent {
-  final String? imageSrc;
-
-  const FeaturedPost({
-    this.imageSrc = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
-  });
+  const FeaturedPost({super.key});
 
   @override
   Future<Component> build(BuildContext context) async {
+    final GetFeaturedPublicationUseCase getFeaturedPublicationUseCase = injection();
+    final Publication publication = await getFeaturedPublicationUseCase();
 
-    final hasImage = imageSrc != null && imageSrc!.isNotEmpty;
+    final hasImage = publication.image != null && publication.image!.isNotEmpty;
 
     return AppCard(
       interactable: false,
@@ -24,25 +25,24 @@ class FeaturedPost extends AsyncStatelessComponent {
           if (hasImage)
             div(classes: 'featured-image-container', [
               img(
-                src: imageSrc!,
-                alt: 'Featured Post',
+                src: publication.image!,
+                alt: publication.title,
                 classes: 'featured-image',
               ),
             ]),
           div(classes: 'featured-content', [
             div(classes: 'meta-tags', [
-              Badge(label: 'Destaque', variant: BadgeVariant.primary),
-              Badge(label: '8 min leitura', variant: BadgeVariant.neutral),
+              Badge(label: 'Destaque', variant: .primary),
+              if (publication.tags.isNotEmpty)
+                Badge(label: publication.tags.first, variant: .neutral),
             ]),
-            h2(classes: 'featured-title', [.text('Dominando a Arquitetura Limpa no Flutter: Guia Definitivo 2026')]),
+            h2(classes: 'featured-title', [.text(publication.title)]),
             p(classes: 'featured-excerpt', [
-              .text(
-                'Descubra como estruturar aplicações escaláveis separando responsabilidades, injetando dependências e mantendo seu código testável do início ao fim.',
-              ),
+              .text(publication.description),
             ]),
-            const LinkButton(
+            LinkButton(
               label: 'Ler Artigo Completo',
-              href: '/post/slug-do-post',
+              href: '/post/${publication.slug}',
             ),
           ]),
         ]),
