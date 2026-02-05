@@ -1,4 +1,4 @@
-package br.com.thiagoodev.blog.common.config
+package br.com.thiagoodev.blog.common.config.cors
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.CorsRegistry

@@ -27,6 +27,8 @@ dependencies {
 	implementation("tools.jackson.module:jackson-module-kotlin")
 	implementation("org.springframework.boot:spring-boot-starter-flyway")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	testImplementation("org.springframework.security:spring-security-test")
 	runtimeOnly("org.flywaydb:flyway-database-postgresql:11.20.0")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
