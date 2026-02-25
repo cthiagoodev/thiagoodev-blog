@@ -44,8 +44,8 @@ class User(
     var permissions: MutableSet<Permission> = mutableSetOf(),
     @Column(nullable = false, updatable = false)
     @CreatedDate
-    val createdAt: LocalDateTime? = null,
+    var createdAt: LocalDateTime? = null,
     @LastModifiedDate
-    val updatedAt: LocalDateTime? = null,
-    val deletedAt: LocalDateTime? = null,
+    var updatedAt: LocalDateTime? = null,
+    var deletedAt: LocalDateTime? = null,
 )

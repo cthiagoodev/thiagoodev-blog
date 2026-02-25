@@ -1,6 +1,6 @@
-package br.com.thiagoodev.blog.modules.user.application.utils
+package br.com.thiagoodev.blog.modules.user.presentation.utils
 
-import br.com.thiagoodev.blog.modules.user.application.dtos.CreateUserDto
+import br.com.thiagoodev.blog.modules.user.presentation.dtos.CreateUserDto
 import br.com.thiagoodev.blog.modules.user.domain.entities.User
 import br.com.thiagoodev.blog.modules.user.domain.value_objects.Permission
 

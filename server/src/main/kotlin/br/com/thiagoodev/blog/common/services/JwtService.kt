@@ -33,10 +33,19 @@ class JwtService {
         return Jwts.parser()
             .verifyWith(getSigningKey())
             .requireIssuer(issuer)
-            .requireExpiration(expiration)
             .build()
             .parseSignedClaims(token)
             .payload
             .subject
+    }
+
+    fun getExpiration(token: String): Long {
+        return Jwts.parser()
+            .verifyWith(getSigningKey())
+            .requireIssuer(issuer)
+            .build()
+            .parseSignedClaims(token)
+            .payload
+            .expiration.time
     }
 }

@@ -1,8 +1,7 @@
 package br.com.thiagoodev.blog.modules.auth.application.services
 
 import br.com.thiagoodev.blog.common.services.JwtService
-import br.com.thiagoodev.blog.modules.auth.application.dtos.CredentialsDto
-import br.com.thiagoodev.blog.modules.auth.application.dtos.TokenDto
+import br.com.thiagoodev.blog.modules.auth.domain.entities.Token
 import br.com.thiagoodev.blog.modules.auth.domain.exceptions.NotAuthenticatedException
 import br.com.thiagoodev.blog.modules.user.domain.entities.User
 import br.com.thiagoodev.blog.modules.user.domain.exceptions.UserNotFoundException
@@ -18,20 +17,27 @@ class AuthService(
     private val authenticationManager: AuthenticationManager,
     private val userRepository: UserRepository,
 ) {
-    fun authenticate(dto: CredentialsDto): TokenDto {
-        val user: User = userRepository.findUniqueByEmail(dto.email)
+    fun authenticate(email: String, password: String): Token {
+        val user: User = userRepository.findUniqueByEmail(email)
             ?: throw UserNotFoundException()
         val userDetails = UserDetailsAdapter(user)
 
         val credentials = UsernamePasswordAuthenticationToken(
-            userDetails.username,
-            userDetails.password,
-        );
+            userDetails,
+            password,
+            userDetails.authorities,
+        )
+
         val auth = authenticationManager.authenticate(credentials)
 
         if(!auth.isAuthenticated) throw NotAuthenticatedException()
 
         val token: String = jwtService.buildToken(userDetails.username)
-        return TokenDto(token)
+        val expiresIn: Long = jwtService.getExpiration(token)
+
+        return Token(
+            accessToken = token,
+            expiresIn = expiresIn
+        )
     }
 }

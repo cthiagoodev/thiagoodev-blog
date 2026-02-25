@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service
 class UserDetailsServiceImp(
     private val userRepository: UserRepository,
 ) : UserDetailsService {
-    override fun loadUserByUsername(username: String?): UserDetails? {
-        if (username.isNullOrBlank()) return null
-
+    override fun loadUserByUsername(username: String): UserDetails {
         val user: User = userRepository.findUniqueByEmail(username)
             ?: throw UserNotFoundException()
 
