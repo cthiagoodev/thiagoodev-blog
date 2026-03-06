@@ -6,7 +6,6 @@ import br.com.thiagoodev.blog.modules.auth.domain.exceptions.NotAuthenticatedExc
 import br.com.thiagoodev.blog.modules.user.domain.entities.User
 import br.com.thiagoodev.blog.modules.user.domain.exceptions.UserNotFoundException
 import br.com.thiagoodev.blog.modules.user.infrastructure.repositories.UserRepository
-import br.com.thiagoodev.blog.modules.user.infrastructure.security.UserDetailsAdapter
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.stereotype.Service
@@ -20,19 +19,17 @@ class AuthService(
     fun authenticate(email: String, password: String): Token {
         val user: User = userRepository.findUniqueByEmail(email)
             ?: throw UserNotFoundException()
-        val userDetails = UserDetailsAdapter(user)
 
         val credentials = UsernamePasswordAuthenticationToken(
-            userDetails,
+            email,
             password,
-            userDetails.authorities,
         )
 
         val auth = authenticationManager.authenticate(credentials)
 
         if(!auth.isAuthenticated) throw NotAuthenticatedException()
 
-        val token: String = jwtService.buildToken(userDetails.username)
+        val token: String = jwtService.buildToken(user.email)
         val expiresIn: Long = jwtService.getExpiration(token)
 
         return Token(

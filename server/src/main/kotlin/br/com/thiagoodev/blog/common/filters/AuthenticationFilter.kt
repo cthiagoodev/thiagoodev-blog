@@ -38,7 +38,7 @@ class AuthenticationFilter(
 
                 val authentication: Authentication = UsernamePasswordAuthenticationToken(
                     userDetails,
-                    userDetails.password,
+                    null,
                     userDetails.authorities
                 )
 

@@ -48,4 +48,10 @@ class User(
     @LastModifiedDate
     var updatedAt: LocalDateTime? = null,
     var deletedAt: LocalDateTime? = null,
-)
+) {
+    fun isAdmin() = permissions.contains(Permission.ADMIN)
+
+    fun addPermission(permission: Permission) {
+        permissions.add(permission)
+    }
+}
