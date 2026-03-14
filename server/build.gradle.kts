@@ -40,6 +40,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.13.0")
 	testImplementation("org.mockito:mockito-core:5.22.0")
+	testImplementation("org.mockito.kotlin:mockito-kotlin:6.2.3")
 	implementation("net.datafaker:datafaker:2.5.4")
 }
 
