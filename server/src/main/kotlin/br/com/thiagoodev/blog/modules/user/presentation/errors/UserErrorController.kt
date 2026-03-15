@@ -22,7 +22,7 @@ class UserErrorController {
     ): ResponseEntity<ErrorResponseDto> {
         return ErrorResponseDto(
             message = ex.message ?: "User already exists",
-            status = HttpStatus.NOT_FOUND.value()
+            status = HttpStatus.CONFLICT.value()
         ).toResponseEntity()
     }
 }
