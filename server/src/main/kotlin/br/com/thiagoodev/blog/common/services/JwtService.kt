@@ -7,7 +7,13 @@ import org.springframework.stereotype.Service
 import java.util.Date
 import javax.crypto.SecretKey
 
-
+/**
+ * Serviço de Criptografia e Emissão de Tokens (JSON Web Token).
+ * Responsável por gerar os "crachás de acesso" da aplicação e validá-los matematicamente.
+ * * Uma vez gerado o token, a aplicação não precisa de uma tabela de banco de dados extra
+ * para controlar as sessões; a simples assinatura válida com a [secretKey] prova que
+ * o token foi gerado pelo nosso servidor e não foi adulterado.
+ */
 @Service
 class JwtService {
     @Value("\${jwt.secret.key}")
