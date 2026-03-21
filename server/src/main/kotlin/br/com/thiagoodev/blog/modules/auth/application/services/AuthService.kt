@@ -19,7 +19,7 @@ class AuthService(
     /**
      * Executa o processo de autenticação e geração de token JWT.
      *
-     * A Dança da Criptografia (Spring Security):
+     * A Criptografia (Spring Security):
      * 1. Este método recebe o `email` e a `password` em TEXTO PLANO (ex: "senha123").
      * 2. Nós envelopamos esses dados crus em um `UsernamePasswordAuthenticationToken` e os entregamos
      * nas mãos do motor do framework: o [AuthenticationManager].
