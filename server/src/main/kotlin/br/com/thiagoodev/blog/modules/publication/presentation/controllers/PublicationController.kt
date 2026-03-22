@@ -1,7 +1,7 @@
 package br.com.thiagoodev.blog.modules.publication.presentation.controllers
 
-import br.com.thiagoodev.blog.modules.publication.application.dtos.CreatePublicationDto
-import br.com.thiagoodev.blog.modules.publication.application.dtos.UpdatePublicationDto
+import br.com.thiagoodev.blog.modules.publication.presentation.dtos.CreatePublicationDto
+import br.com.thiagoodev.blog.modules.publication.presentation.dtos.UpdatePublicationDto
 import br.com.thiagoodev.blog.modules.publication.application.services.PublicationService
 import br.com.thiagoodev.blog.modules.publication.application.services.PublicationViewService
 import br.com.thiagoodev.blog.modules.publication.domain.entities.Publication

@@ -1,4 +1,4 @@
-package br.com.thiagoodev.blog.modules.publication.application.dtos
+package br.com.thiagoodev.blog.modules.publication.presentation.dtos
 
 import jakarta.validation.constraints.NotBlank
 

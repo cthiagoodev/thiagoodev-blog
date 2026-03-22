@@ -1,5 +1,6 @@
 package br.com.thiagoodev.blog.modules.publication.domain.entities
 
+import br.com.thiagoodev.blog.modules.publication.domain.utils.SlugFactory
 import br.com.thiagoodev.blog.modules.publication.domain.value_objects.Tag
 import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
@@ -59,5 +60,19 @@ class Publication(
     fun delete() {
         if(isDeleted) return
         deletedAt = LocalDateTime.now()
+    }
+
+    fun updateWith(updatedData: Publication) {
+        if (this.title != updatedData.title) {
+            this.title = updatedData.title
+            this.slug = SlugFactory(updatedData.title).generate()
+        }
+
+        this.description = updatedData.description
+        this.text = updatedData.text
+        this.image = updatedData.image
+
+        this.tags.clear()
+        this.tags.addAll(updatedData.tags)
     }
 }

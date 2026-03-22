@@ -1,8 +1,5 @@
 package br.com.thiagoodev.blog.modules.publication.application.services
 
-import br.com.thiagoodev.blog.modules.publication.application.dtos.CreatePublicationDto
-import br.com.thiagoodev.blog.modules.publication.application.dtos.UpdatePublicationDto
-import br.com.thiagoodev.blog.modules.publication.application.utils.toPublication
 import br.com.thiagoodev.blog.modules.publication.domain.entities.Publication
 import br.com.thiagoodev.blog.modules.publication.domain.exceptions.PublicationAlreadyDeletedException
 import br.com.thiagoodev.blog.modules.publication.domain.exceptions.PublicationNotFoundException
@@ -57,37 +54,18 @@ class PublicationService(private val publicationRepository: PublicationRepositor
     }
 
     @Transactional
-    fun create(dto: CreatePublicationDto): Publication {
-        val publication: Publication = dto.toPublication()
+    fun create(publication: Publication): Publication {
         return publicationRepository.save(publication)
     }
 
     @Transactional
-    fun update(uuid: String, dto: UpdatePublicationDto): Publication {
-        val uuid = UUID.fromString(uuid)
-        val publication: Publication = publicationRepository.findByUuidAndDeletedAtIsNull(uuid)
+    fun update(updated: Publication): Publication {
+        val uuid = updated.uuid ?: throw IllegalArgumentException("UUID is required for update")
+
+        val publication = publicationRepository.findByUuidAndDeletedAtIsNull(uuid)
             ?: throw PublicationNotFoundException()
 
-        publication.apply {
-            dto.title?.let {
-                title = it
-                slug = SlugFactory(it).generate()
-            }
-
-            dto.description?.let { description = it }
-            dto.text?.let { text = it }
-            dto.image?.let { image = it }
-
-            dto.tags?.let {
-                tags.clear()
-                tags.addAll(
-                it
-                    .mapNotNull { tag -> Tag.from(tag) }
-                    .toMutableSet()
-                )
-            }
-
-        }
+        publication.updateWith(updated)
 
         return publicationRepository.save(publication)
     }

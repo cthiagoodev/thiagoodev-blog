@@ -1,6 +1,6 @@
-package br.com.thiagoodev.blog.modules.publication.application.utils
+package br.com.thiagoodev.blog.modules.publication.presentation.utils
 
-import br.com.thiagoodev.blog.modules.publication.application.dtos.CreatePublicationDto
+import br.com.thiagoodev.blog.modules.publication.presentation.dtos.CreatePublicationDto
 import br.com.thiagoodev.blog.modules.publication.domain.entities.Publication
 import br.com.thiagoodev.blog.modules.publication.domain.utils.SlugFactory
 import br.com.thiagoodev.blog.modules.publication.domain.value_objects.Tag
